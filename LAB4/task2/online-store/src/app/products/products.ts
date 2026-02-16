@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Product } from '../product.model';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnInit{
 
   products: Product[] = [
     {
@@ -18,12 +19,8 @@ export class ProductsComponent {
       description: 'Apple smartphone with A17 chip.',
       price: 550000,
       rating: 4.8,
-      image: 'https://via.placeholder.com/200',
-      images: [
-        'https://via.placeholder.com/200',
-        'https://via.placeholder.com/200',
-        'https://via.placeholder.com/200'
-      ],
+      image: 'assets/image.png',
+      images: ["assets/image.png"],
       link: 'https://kaspi.kz'
     },
     {
@@ -33,11 +30,7 @@ export class ProductsComponent {
       price: 480000,
       rating: 4.6,
       image: 'https://via.placeholder.com/200',
-      images: [
-        'https://via.placeholder.com/200',
-        'https://via.placeholder.com/200',
-        'https://via.placeholder.com/200'
-      ],
+      images: ['https://via.placeholder.com/200'],
       link: 'https://kaspi.kz'
     },
     {
@@ -48,8 +41,6 @@ export class ProductsComponent {
     rating: 4.5,
     image: 'https://via.placeholder.com/200',
     images: [
-      'https://via.placeholder.com/200',
-      'https://via.placeholder.com/200',
       'https://via.placeholder.com/200'
     ],
     link: 'https://kaspi.kz'
@@ -153,6 +144,19 @@ export class ProductsComponent {
     link: 'https://kaspi.kz'
   }
   ];
+  searchQuery: string = '';
+  filteredProducts: Product[] = [];
+  ngOnInit(): void{
+    this.filteredProducts = this.products;
+  }
+   filterProducts(): void {
+    const query = this.searchQuery.toLowerCase();
+
+    this.filteredProducts = this.products.filter(product =>
+      product.name.toLowerCase().includes(query)
+    );
+  }
+
   shareWhatsApp(product: Product) {
   const text = encodeURIComponent(
     `Check out this product: ${product.name} ${product.link}`

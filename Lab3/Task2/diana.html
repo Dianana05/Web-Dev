@@ -71,7 +71,14 @@
             padding: 0;
             margin: 0;
         }
+        .is-completed span {
+    text-decoration: line-through;
+    color: rgb(227, 11, 11);
+}
 
+.is-hidden {
+    display: none;
+}
         li {
             display: flex;
             align-items: center;
@@ -109,11 +116,16 @@
 <div class="floating-title">ToDo List</div>
 
 <main>
+    
     <form id="todoForm">
         <input type="text" id="taskInput" placeholder="New task">
         <button type="submit">Add</button>
     </form>
-
+    <div class="filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn " data-filter="active">Active</button>
+        <button class="filter-btn" data-filter="completed">Completed</button>
+    </div>
     <ul id="taskList"></ul>
 </main>
 
@@ -121,6 +133,9 @@
     const form = document.getElementById("todoForm");
     const input = document.getElementById("taskInput");
     const list = document.getElementById("taskList");
+    const filterButtons = document.querySelectorAll(".filter-btn");
+
+    let currentFilter="all";
 
     form.addEventListener("submit", function (e) {
         e.preventDefault();
@@ -140,11 +155,14 @@
         deleteBtn.textContent = "❌";
 
         checkbox.addEventListener("change", function () {
-            span.classList.toggle("done");
+            li.classList.toggle("is-completed", checkbox.checked);
+            applyFilter();
+            
         });
 
         deleteBtn.addEventListener("click", function () {
             li.remove();
+            applyFilter();
         });
 
         li.appendChild(checkbox);
@@ -153,6 +171,34 @@
 
         list.appendChild(li);
         input.value = "";
+        applyFilter();
+    });
+     function applyFilter() {
+        const items = document.querySelectorAll("#taskList li");
+
+        items.forEach(item => {
+            const completed = item.classList.contains("is-completed");
+            let show = true;
+
+            if (currentFilter === "active") {
+                show = !completed;
+            }
+
+            if (currentFilter === "completed") {
+                show = completed;
+            }
+
+            item.classList.toggle("is-hidden", !show);
+        });
+    }
+    filterButtons.forEach(btn => {
+        btn.addEventListener("click", function () {
+            filterButtons.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            currentFilter = btn.dataset.filter;
+            applyFilter();
+        });
     });
 </script>
 

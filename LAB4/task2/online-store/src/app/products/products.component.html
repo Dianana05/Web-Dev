@@ -1,6 +1,15 @@
 <h2>Products</h2>
-
-<div *ngFor="let product of products" style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+<div class="search-container">
+  <label for="search">Search products</label>
+  <input
+    id="search"
+    type="text"
+    placeholder="Search by product name..."
+    [(ngModel)]="searchQuery"
+    (input)="filterProducts()"
+  />
+</div>
+<div *ngFor="let product of filteredProducts" style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
   <h3>{{ product.name }}</h3>
   <p>{{ product.description }}</p>
   <p><strong>Price:</strong> {{ product.price }} KZT</p>
