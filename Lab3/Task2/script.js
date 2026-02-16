@@ -27,17 +27,15 @@ function addTask() {
     });
 
     li.appendChild(checkbox);
+    
     li.appendChild(span);
     li.appendChild(deleteBtn);
 
     list.appendChild(li);
     input.value = "";
 }
-
-// кнопка
 button.addEventListener("click", addTask);
 
-// Enter / submit
 form.addEventListener("submit", function (e) {
     e.preventDefault();
     addTask();
