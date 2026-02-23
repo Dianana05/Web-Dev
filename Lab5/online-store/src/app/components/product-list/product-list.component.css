@@ -1,17 +1,93 @@
-.product-grid {
+.grid{
   display: grid;
-  /* Автоматически подстраивает количество колонок. Минимальная ширина карточки - 260px */
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
-  align-items: stretch;
-  padding: 10px 0;
+  grid-template-columns: repeat(4, minmax(220px, 1fr));
+  gap: 18px;
 }
 
-.empty-state {
-  text-align: center;
-  padding: 50px 20px;
-  background: #f9f9f9;
-  border-radius: 8px;
+.card{
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+}
+
+.img{
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fafafa;
+}
+
+.img img{
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.content{
+  padding: 14px;
+}
+
+.title{
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.desc{
+  margin: 0 0 12px;
   color: #666;
-  font-size: 18px;
+  font-size: 13px;
+  line-height: 1.35;
+  min-height: 34px;
+}
+
+.meta{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.price{
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.rating{
+  font-size: 14px;
+  color: #444;
+}
+
+.actions, .share{
+  display: flex;
+  gap: 10px;
+}
+
+.btn{
+  border: 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+}
+
+.btn.fav{ background: #ff4d3c; color: white; flex: 1; }
+.btn.del{ background: #f1f1f1; color: #222; }
+
+.btn.wa{ background: #22c55e; color: white; flex: 1; }
+.btn.tg{ background: #0ea5e9; color: white; flex: 1; }
+
+@media (max-width: 1100px){
+  .grid{ grid-template-columns: repeat(3, minmax(220px, 1fr)); }
+}
+@media (max-width: 850px){
+  .grid{ grid-template-columns: repeat(2, minmax(220px, 1fr)); }
+}
+@media (max-width: 520px){
+  .grid{ grid-template-columns: 1fr; }
 }

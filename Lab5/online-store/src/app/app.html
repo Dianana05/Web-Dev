@@ -1,26 +1,36 @@
-<header>
-  <h1>Мой Магазин</h1>
-  <nav class="category-tabs">
-    @for (category of categories; track category.id) {
-      <button 
-        [class.active]="selectedCategory?.id === category.id"
-        (click)="selectCategory(category)">
-        {{ category.name }}
-      </button>
-    }
-  </nav>
-</header>
+<h1 class="page-title">Мой Магазин</h1>
 
-<main>
-  @if (!selectedCategory) {
-    <div class="welcome-message">
-      <h2>Добро пожаловать! Пожалуйста, выберите категорию выше.</h2>
-    </div>
-  } @else {
-    <h2>{{ selectedCategory.name }}</h2>
-    <app-product-list 
-      [products]="displayedProducts"
-      (productDeleted)="handleProductDelete($event)">
-    </app-product-list>
-  }
-</main>    
+<!-- ⭐ FAVORITES SECTION -->
+<div class="favorites" *ngIf="favoriteProducts.length > 0">
+  <h2 class="section-title">⭐ Избранное ({{ favoriteProducts.length }})</h2>
+
+  <app-product-list
+    [products]="favoriteProducts"
+    [showDelete]="false"
+    (favorite)="toggleFavorite($event)">
+  </app-product-list>
+</div>
+
+<!-- Категории -->
+<div class="cats">
+  <button
+    class="cat"
+    *ngFor="let category of categories"
+    (click)="selectCategory(category)"
+    [class.active]="selectedCategory?.id === category.id">
+    {{ category.name }}
+  </button>
+</div>
+
+<!-- Заголовок выбранной категории -->
+<h2 class="section-title" *ngIf="selectedCategory">
+  {{ selectedCategory.name }}
+</h2>
+
+<!-- Товары выбранной категории -->
+<app-product-list
+  [products]="displayedProducts"
+  [showDelete]="true"
+  (delete)="handleProductDelete($event)"
+  (favorite)="toggleFavorite($event)">
+</app-product-list>

@@ -1,13 +1,43 @@
-@if (products().length === 0) {
-  <div class="empty-state">
-    <p>В этой категории нет товаров.</p>
+<div class="grid">
+  <div class="card" *ngFor="let product of products">
+
+    <div class="img">
+      <img [src]="product.image" [alt]="product.name">
+    </div>
+
+    <div class="content">
+      <h3 class="title">{{ product.name }}</h3>
+      <p class="desc">{{ product.description }}</p>
+
+      <div class="meta">
+        <div class="price">{{ product.price }} ₸</div>
+        <div class="rating">⭐ {{ product.rating }}</div>
+      </div>
+
+      <div class="actions">
+        <button class="btn fav" (click)="onFavorite(product.id)">
+          {{ product.isFavorite ? '★ Remove' : '☆ Add to Favorites' }}
+        </button>
+
+        <button class="btn del" *ngIf="showDelete" (click)="onDelete(product.id)">
+          Delete
+        </button>
+      </div>
+
+      <div class="share">
+        <a class="btn wa"
+           [href]="'https://wa.me/?text=' + product.link"
+           target="_blank">
+          WhatsApp
+        </a>
+
+        <a class="btn tg"
+           [href]="'https://t.me/share/url?url=' + product.link"
+           target="_blank">
+          Telegram
+        </a>
+      </div>
+    </div>
+
   </div>
-} @else {
-  <div class="product-grid">
-    @for (product of products(); track product.id) {
-      <app-product-card 
-        [product]="product" 
-        (delete)="onDelete($event)" />
-    }
-  </div>
-}
+</div>
