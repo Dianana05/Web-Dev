@@ -21,7 +21,7 @@ export class ProductsComponent implements OnInit{
       rating: 4.8,
       image: 'assets/image.png',
       images: ["assets/image.png"],
-      link: 'https://kaspi.kz'
+      link: 'https://kaspi.kz/shop/p/apple-iphone-15-128gb-rozovyi-113137949/?c=750000000'
     },
     {
       id: 2,

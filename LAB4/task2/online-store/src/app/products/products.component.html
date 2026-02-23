@@ -9,6 +9,7 @@
     (input)="filterProducts()"
   />
 </div>
+
 <div *ngFor="let product of filteredProducts" style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
   <h3>{{ product.name }}</h3>
   <p>{{ product.description }}</p>
@@ -19,12 +20,13 @@
   alt="{{ product.name }}" 
   style="width:200px; display:block; margin-bottom:10px;"
 >
+
   <a [href]="product.link" target="_blank">
     View on Kaspi
   </a>
   <button (click)="shareWhatsApp(product)">
   Share on WhatsApp
-</button>
+</button> 
 
 <button (click)="shareTelegram(product)">
   Share on Telegram
