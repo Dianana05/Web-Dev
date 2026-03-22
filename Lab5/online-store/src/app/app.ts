@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
   }
 
   handleProductDelete(productId: number): void {
-    this.allProducts = this.allProducts.filter(p => p.id !== productId);
+    this.allProducts = this.allProducts.filter  (p => p.id !== productId);
     if (this.selectedCategory) {
       const stillExists = this.allProducts.some(p => p.categoryId === this.selectedCategory!.id);
       if (!stillExists) {
